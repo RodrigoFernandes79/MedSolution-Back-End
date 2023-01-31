@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import med.solution.apiRest.records.DadosCadastraisMedico;
 
 @RestController
-@RequestMapping("medicos")
+@RequestMapping("/medicos")
 public class MedicoController {
 	
 	@PostMapping
 	public void cadastrarMedico(@RequestBody DadosCadastraisMedico dadosMedico) {
+		
+		System.out.println(dadosMedico);
 	
 	}
 }
