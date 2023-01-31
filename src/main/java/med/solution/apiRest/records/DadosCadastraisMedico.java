@@ -1,6 +1,6 @@
 package med.solution.apiRest.records;
 
-import med.solution.apiRest.records.enums.Especialidade;
+import med.solution.apiRest.models.enums.Especialidade;
 
 public record DadosCadastraisMedico (	
 		String nome,
