@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import med.solution.apiRest.records.DadosCadastraisMedico;
+import med.solution.apiRest.records.DadosCadastraisPaciente;
 
 @RestController
-@RequestMapping("medicos")
-public class MedicoController {
+@RequestMapping("/pacientes")
+public class PacienteController {
 	
-	@PostMapping
-	public void cadastrarMedico(@RequestBody DadosCadastraisMedico dadosMedico) {
-	
-	}
+	@PostMapping 
+	public void cadastrarPaciente(@RequestBody DadosCadastraisPaciente dadosPaciente) {
+
+}
 }
