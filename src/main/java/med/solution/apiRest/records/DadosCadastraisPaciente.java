@@ -5,6 +5,6 @@ public record DadosCadastraisPaciente(
 		String  email,
 		String  telefone,
 		String  cpf,
-		Endereco   endereçoCompleto) {
+		DadosEndereco  endereçoCompleto) {
 
 }

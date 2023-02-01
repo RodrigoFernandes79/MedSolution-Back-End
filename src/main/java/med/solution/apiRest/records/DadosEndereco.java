@@ -1,6 +1,6 @@
 package med.solution.apiRest.records;
 
-public record Endereco (
+public record DadosEndereco (
 		String logradouro,
 		String numero, 
 		String complemento,
