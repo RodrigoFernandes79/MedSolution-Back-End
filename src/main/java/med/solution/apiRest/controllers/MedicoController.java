@@ -1,6 +1,7 @@
 package med.solution.apiRest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +14,15 @@ import med.solution.apiRest.repositories.MedicoRepository;
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
-	
-	@Autowired
-	private MedicoRepository medRepository;
-	
-	@PostMapping
-	public void cadastrarMedico(@RequestBody DadosCadastraisMedico dadosMedico) {
-		
-		medRepository.save(new Medico(dadosMedico));
-	
-	}
+
+    @Autowired
+    private MedicoRepository medRepository;
+
+    @PostMapping
+    @Transactional
+    public void cadastrarMedico(@RequestBody DadosCadastraisMedico dadosMedico) {
+
+        medRepository.save(new Medico(dadosMedico));
+
+    }
 }
