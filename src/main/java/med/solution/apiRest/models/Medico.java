@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.solution.apiRest.models.enums.Especialidade;
+import med.solution.apiRest.records.DadosAtualizacaoMedico;
 import med.solution.apiRest.records.DadosCadastraisMedico;
 
 
@@ -24,8 +25,6 @@ import med.solution.apiRest.records.DadosCadastraisMedico;
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Medico {
-	
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,4 +52,17 @@ public Medico(DadosCadastraisMedico dadosMedico) {
 		
 	}
 
+	public void atualizarInformacoes(DadosAtualizacaoMedico dadosMedico) {
+
+	if(dadosMedico.nome() != null) {
+		this.nome = dadosMedico.nome();
+	}
+	if(dadosMedico.telefone() != null) {
+		this.telefone = dadosMedico.telefone();
+	}
+	if(dadosMedico.endereco() != null) {
+		this.enderecoCompleto.atualizarInformacoesEndereco(dadosMedico.endereco());
+	}
+
+	}
 }

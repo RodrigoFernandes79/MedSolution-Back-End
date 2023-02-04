@@ -2,6 +2,7 @@ package med.solution.apiRest.controllers;
 
 import jakarta.validation.Valid;
 import med.solution.apiRest.models.Medico;
+import med.solution.apiRest.records.DadosAtualizacaoMedico;
 import med.solution.apiRest.records.DadosCadastraisMedico;
 import med.solution.apiRest.records.DadosListagemMedico;
 import med.solution.apiRest.repositories.MedicoRepository;
@@ -35,5 +36,11 @@ public class MedicoController {
         return medRepository.findAll(paginacao).map(DadosListagemMedico::new);
 
     }
+    @PutMapping
+    @Transactional
+    public void atualizarMedico(@RequestBody @Valid DadosAtualizacaoMedico dadosMedico){
 
+        var medico = medRepository.getReferenceById(dadosMedico.id());
+        medico.atualizarInformacoes(dadosMedico);
+            }
 }
