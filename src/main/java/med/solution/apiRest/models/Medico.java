@@ -34,37 +34,37 @@ public class Medico {
 	private String telefone;
 	private String crm;
 	@Enumerated(EnumType.STRING)
-	private Especialidade  especialidade;
+	private Especialidade especialidade;
 	private Boolean ativo;
 	@Embedded /*Vamos usar Embeddable Attribute da JPA para que Endereco fique em uma classe separada,
 	mas faça parte da mesma tabela de Medicos junto ao banco de dados.*/
 	private Endereco enderecoCompleto;
-	
-public Medico(DadosCadastraisMedico dadosMedico) {
 
-	this.nome = dadosMedico.nome();
-	this.email = dadosMedico.email();
-	this.telefone = dadosMedico.telefone();
-	this.crm = dadosMedico.crm();
-	this.especialidade = dadosMedico.especialidade();
-	this.ativo = true;
-	this.enderecoCompleto = new Endereco(dadosMedico.endereco());
-		
+	public Medico(DadosCadastraisMedico dadosMedico) {
+
+		this.nome = dadosMedico.nome();
+		this.email = dadosMedico.email();
+		this.telefone = dadosMedico.telefone();
+		this.crm = dadosMedico.crm();
+		this.especialidade = dadosMedico.especialidade();
+		this.ativo = true;
+		this.enderecoCompleto = new Endereco(dadosMedico.endereco());
+
 	}
 
 	public void atualizarInformacoes(DadosAtualizacaoMedico dadosMedico) {
 
-	if(dadosMedico.nome() != null) {
-		this.nome = dadosMedico.nome();
-	}
-	if(dadosMedico.telefone() != null) {
-		this.telefone = dadosMedico.telefone();
-	}
-	if(dadosMedico.endereco() != null) {
-		this.enderecoCompleto.atualizarInformacoesEndereco(dadosMedico.endereco());
+		if (dadosMedico.nome() != null) {
+			this.nome = dadosMedico.nome();
+		}
+		if (dadosMedico.telefone() != null) {
+			this.telefone = dadosMedico.telefone();
+		}
+		if (dadosMedico.endereco() != null) {
+			this.enderecoCompleto.atualizarInformacoesEndereco(dadosMedico.endereco());
+		}
 	}
 
-	}
 	public void desativarMedico() {
 		this.ativo = false;
 	}

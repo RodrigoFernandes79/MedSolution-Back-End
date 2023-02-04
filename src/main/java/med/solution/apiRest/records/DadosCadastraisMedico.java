@@ -23,6 +23,4 @@ public record DadosCadastraisMedico (
         @NotNull
         @Valid
         DadosEndereco endereco
-) {
-
-}
+) { }
