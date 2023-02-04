@@ -1,0 +1,1 @@
+alter table pacientes modify email varchar(200) not null;
