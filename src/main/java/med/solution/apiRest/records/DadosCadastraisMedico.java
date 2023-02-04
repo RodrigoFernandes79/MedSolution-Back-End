@@ -22,6 +22,7 @@ public record DadosCadastraisMedico (
         Especialidade especialidade,
         @NotNull
         @Valid
-        DadosEndereco enderecoCompleto) {
+        DadosEndereco endereco
+) {
 
 }

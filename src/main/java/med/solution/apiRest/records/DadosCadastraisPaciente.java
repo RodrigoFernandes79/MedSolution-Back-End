@@ -19,6 +19,6 @@ public record DadosCadastraisPaciente(
 		String  cpf,
 		@NotNull
 		@Valid
-		DadosEndereco  enderecoCompleto) {
+		DadosEndereco  endereco) {
 
 }

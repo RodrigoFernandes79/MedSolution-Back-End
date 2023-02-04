@@ -2,11 +2,13 @@ package med.solution.apiRest.records;
 
 import jakarta.validation.constraints.NotNull;
 
-public record DadosAtualizacaoMedico(
+public record DadosAtualizacaoPaciente(
         @NotNull
         Long id,
         String nome,
         String telefone,
-        DadosEndereco endereco
-) { }
 
+        DadosEndereco endereco
+
+) {
+}

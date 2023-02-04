@@ -48,7 +48,7 @@ public Medico(DadosCadastraisMedico dadosMedico) {
 	this.crm = dadosMedico.crm();
 	this.especialidade = dadosMedico.especialidade();
 	this.ativo = true;
-	this.enderecoCompleto = new Endereco(dadosMedico.enderecoCompleto());
+	this.enderecoCompleto = new Endereco(dadosMedico.endereco());
 		
 	}
 
