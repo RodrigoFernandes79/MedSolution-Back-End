@@ -49,6 +49,7 @@ public class Paciente {
     }
 
     public void desativarPaciente() {
+
         this.ativo = false;
     }
 }
