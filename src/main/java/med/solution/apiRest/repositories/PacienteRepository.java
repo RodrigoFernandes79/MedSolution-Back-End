@@ -1,6 +1,6 @@
 package med.solution.apiRest.repositories;
 
-import med.solution.apiRest.models.Paciente;
+import med.solution.apiRest.models.paciente.Paciente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

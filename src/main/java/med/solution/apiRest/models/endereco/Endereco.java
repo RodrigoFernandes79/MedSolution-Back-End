@@ -1,9 +1,8 @@
-package med.solution.apiRest.models;
+package med.solution.apiRest.models.endereco;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.solution.apiRest.records.DadosEndereco;
 
 @Embeddable
 @Getter

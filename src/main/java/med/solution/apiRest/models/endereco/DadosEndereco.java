@@ -1,4 +1,4 @@
-package med.solution.apiRest.records;
+package med.solution.apiRest.models.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

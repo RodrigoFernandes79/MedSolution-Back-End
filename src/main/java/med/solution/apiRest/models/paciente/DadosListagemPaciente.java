@@ -1,7 +1,7 @@
-package med.solution.apiRest.records;
+package med.solution.apiRest.models.paciente;
 
 import jakarta.validation.constraints.NotNull;
-import med.solution.apiRest.models.Paciente;
+import med.solution.apiRest.models.paciente.Paciente;
 
 public record DadosListagemPaciente(
        @NotNull

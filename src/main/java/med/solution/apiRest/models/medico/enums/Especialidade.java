@@ -1,4 +1,4 @@
-package med.solution.apiRest.models.enums;
+package med.solution.apiRest.models.medico.enums;
 
 public enum Especialidade {
 	

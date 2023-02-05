@@ -1,4 +1,4 @@
-package med.solution.apiRest.models;
+package med.solution.apiRest.models.medico;
 
 
 import jakarta.persistence.Embedded;
@@ -13,9 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.solution.apiRest.models.enums.Especialidade;
-import med.solution.apiRest.records.DadosAtualizacaoMedico;
-import med.solution.apiRest.records.DadosCadastraisMedico;
+import med.solution.apiRest.models.endereco.Endereco;
+import med.solution.apiRest.models.medico.enums.Especialidade;
 
 
 @Table(name="medicos")

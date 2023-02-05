@@ -2,11 +2,11 @@ package med.solution.apiRest.controllers;
 
 
 import jakarta.validation.Valid;
-import med.solution.apiRest.models.Paciente;
-import med.solution.apiRest.records.DadosAtualizacaoPaciente;
-import med.solution.apiRest.records.DadosCadastraisPaciente;
-import med.solution.apiRest.records.DadosDetalhamentoPaciente;
-import med.solution.apiRest.records.DadosListagemPaciente;
+import med.solution.apiRest.models.paciente.Paciente;
+import med.solution.apiRest.models.paciente.DadosAtualizacaoPaciente;
+import med.solution.apiRest.models.paciente.DadosCadastraisPaciente;
+import med.solution.apiRest.models.paciente.DadosDetalhamentoPaciente;
+import med.solution.apiRest.models.paciente.DadosListagemPaciente;
 import med.solution.apiRest.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

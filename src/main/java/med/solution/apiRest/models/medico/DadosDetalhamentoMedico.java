@@ -1,8 +1,7 @@
-package med.solution.apiRest.records;
+package med.solution.apiRest.models.medico;
 
-import med.solution.apiRest.models.Endereco;
-import med.solution.apiRest.models.Medico;
-import med.solution.apiRest.models.enums.Especialidade;
+import med.solution.apiRest.models.endereco.Endereco;
+import med.solution.apiRest.models.medico.enums.Especialidade;
 
 public record DadosDetalhamentoMedico(Long id,
                                       String nome,

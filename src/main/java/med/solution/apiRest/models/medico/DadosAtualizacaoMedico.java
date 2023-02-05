@@ -1,6 +1,7 @@
-package med.solution.apiRest.records;
+package med.solution.apiRest.models.medico;
 
 import jakarta.validation.constraints.NotNull;
+import med.solution.apiRest.models.endereco.DadosEndereco;
 
 public record DadosAtualizacaoMedico(
         @NotNull

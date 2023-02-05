@@ -1,7 +1,7 @@
-package med.solution.apiRest.records;
+package med.solution.apiRest.models.paciente;
 
-import med.solution.apiRest.models.Endereco;
-import med.solution.apiRest.models.Paciente;
+import med.solution.apiRest.models.endereco.Endereco;
+import med.solution.apiRest.models.paciente.Paciente;
 
 public record DadosDetalhamentoPaciente(
         Long id,

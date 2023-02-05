@@ -1,12 +1,11 @@
-package med.solution.apiRest.models;
+package med.solution.apiRest.models.paciente;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.solution.apiRest.records.DadosAtualizacaoPaciente;
-import med.solution.apiRest.records.DadosCadastraisPaciente;
+import med.solution.apiRest.models.endereco.Endereco;
 
 @Table(name="pacientes")
 @Entity(name="Paciente")
