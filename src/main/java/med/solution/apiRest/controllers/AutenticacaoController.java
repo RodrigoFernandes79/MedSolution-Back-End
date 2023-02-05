@@ -1,6 +1,7 @@
 package med.solution.apiRest.controllers;
 
 import jakarta.validation.Valid;
+import med.solution.apiRest.models.token.DadosTokenJWT;
 import med.solution.apiRest.models.usuario.DadosAutenticacaoUsuario;
 import med.solution.apiRest.models.usuario.Usuario;
 import med.solution.apiRest.repositories.UsuarioRepository;
@@ -34,14 +35,16 @@ public class AutenticacaoController {
 
     @PostMapping
     public ResponseEntity fazerLogin(@RequestBody @Valid DadosAutenticacaoUsuario dadosUsuario) {
-        var token = new UsernamePasswordAuthenticationToken(
+        var authenticationToken = new UsernamePasswordAuthenticationToken(
                 dadosUsuario.login(),
                 dadosUsuario.senha());
 
 
-        var authentication = authenticationManager.authenticate(token);
+        var authentication = authenticationManager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
+        var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 
     @PostMapping("/cadastro")
