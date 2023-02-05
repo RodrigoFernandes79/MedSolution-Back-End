@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import med.solution.apiRest.models.usuario.DadosAutenticacaoUsuario;
 import med.solution.apiRest.models.usuario.Usuario;
 import med.solution.apiRest.repositories.UsuarioRepository;
+import med.solution.apiRest.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,9 @@ public class AutenticacaoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity fazerLogin(@RequestBody @Valid DadosAutenticacaoUsuario dadosUsuario) {
         var token = new UsernamePasswordAuthenticationToken(
@@ -37,7 +41,7 @@ public class AutenticacaoController {
 
         var authentication = authenticationManager.authenticate(token);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
     }
 
     @PostMapping("/cadastro")
