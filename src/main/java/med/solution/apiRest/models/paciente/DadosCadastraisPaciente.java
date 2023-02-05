@@ -8,18 +8,20 @@ import med.solution.apiRest.models.endereco.DadosEndereco;
 import org.hibernate.validator.constraints.br.CPF;
 
 public record DadosCadastraisPaciente(
-		@NotBlank
-		String   nome,
-		@NotBlank
-		@Email
-		String  email,
-		@NotBlank
-		String  telefone,
-		@NotBlank
-		@CPF
+		@NotBlank(message = "{nome.obrigatorio}")
+		String nome,
+		@NotBlank(message = "{email.obrigatorio}")
+		@Email(message = "{email.invalido}")
+		String email,
+		@NotBlank(message = "{telefone.obrigatorio}")
+		String telefone,
+
+		@NotBlank(message="{cpf.obrigatorio}")
+		@CPF(message = "{cpf.invalido}")
 		String  cpf,
-		@NotNull
+
+		@NotNull(message = "{endereco.obrigatorio}")
 		@Valid
-        DadosEndereco endereco) {
+		DadosEndereco endereco) {
 
 }

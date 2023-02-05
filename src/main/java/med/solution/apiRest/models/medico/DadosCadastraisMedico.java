@@ -11,7 +11,7 @@ import med.solution.apiRest.models.medico.enums.Especialidade;
 public record DadosCadastraisMedico (
 
         @NotBlank(message = "{nome.obrigatorio}")
-                String nome,
+        String nome,
 
         @NotBlank(message = "{email.obrigatorio}")
         @Email(message = "{email.invalido}")
@@ -28,5 +28,6 @@ public record DadosCadastraisMedico (
         Especialidade especialidade,
 
         @NotNull(message = "{endereco.obrigatorio}")
-        @Valid DadosEndereco endereco
+        @Valid
+        DadosEndereco endereco
 ) { }
