@@ -62,4 +62,11 @@ public class MedicoController {
         medico.desativarMedico();
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity detalharMedicoPorId(@PathVariable Long id) {
+        var medico = medRepository.getReferenceById(id);
+
+        return ResponseEntity.ok().body(new DadosDetalhamentoMedico(medico));
+    }
+
 }
