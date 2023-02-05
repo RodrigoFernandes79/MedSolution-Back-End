@@ -9,19 +9,24 @@ import med.solution.apiRest.models.endereco.DadosEndereco;
 import med.solution.apiRest.models.medico.enums.Especialidade;
 
 public record DadosCadastraisMedico (
-        @NotBlank //nao pode ser vazio e nulo (campos string)
-        String nome,
-        @Email
-        @NotBlank
+
+        @NotBlank(message = "{nome.obrigatorio}")
+                String nome,
+
+        @NotBlank(message = "{email.obrigatorio}")
+        @Email(message = "{email.invalido}")
         String email,
-        @NotBlank
-        @Pattern(regexp = "\\d{4,6}")
-        String crm,
-        @NotBlank
+
+        @NotBlank(message = "{telefone.obrigatorio}")
         String telefone,
-        @NotNull
+
+        @NotBlank(message = "{crm.obrigatorio}")
+        @Pattern(regexp = "\\d{4,6}", message = "{crm.invalido}")
+        String crm,
+
+        @NotNull(message = "{especialidade.obrigatoria}")
         Especialidade especialidade,
-        @NotNull
-        @Valid
-        DadosEndereco endereco
+
+        @NotNull(message = "{endereco.obrigatorio}")
+        @Valid DadosEndereco endereco
 ) { }
