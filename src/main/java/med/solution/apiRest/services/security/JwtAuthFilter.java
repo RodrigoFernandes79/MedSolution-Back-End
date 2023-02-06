@@ -17,8 +17,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
+        var tokenJWT = recuperarToken(request);
 
         filterChain.doFilter(request,response); //código para ele seguir com a requisição
 
+    }
+
+    private String recuperarToken(HttpServletRequest request) {
+        var authorizationHeader = request.getHeader("Authorization");
+        if(authorizationHeader == null){
+            throw new RuntimeException("O Token JWT não foi enviado no cabeçalho Authorization.");
+        }
+        return authorizationHeader.replace("Bearer",""); //tirar o nome do prefixo Bearer no cabeçalho
     }
 }
