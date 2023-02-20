@@ -1,18 +1,16 @@
 package med.solution.apiRest.models.paciente;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import med.solution.apiRest.models.endereco.Endereco;
 
-@Table(name="pacientes")
-@Entity(name="Paciente")
+@Table(name = "pacientes")
+@Entity(name = "Paciente")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,18 +29,18 @@ public class Paciente {
         this.email = dadosPaciente.email();
         this.cpf = dadosPaciente.cpf();
         this.telefone = dadosPaciente.telefone();
-        this.ativo= true;
+        this.ativo = true;
         this.enderecoCompleto = new Endereco(dadosPaciente.endereco());
     }
 
     public void atualizarInformacoesPaciente(DadosAtualizacaoPaciente dadosPaciente) {
-        if(dadosPaciente.nome() != null) {
+        if (dadosPaciente.nome() != null) {
             this.nome = dadosPaciente.nome();
         }
-        if(dadosPaciente.telefone() != null) {
+        if (dadosPaciente.telefone() != null) {
             this.telefone = dadosPaciente.telefone();
         }
-        if(dadosPaciente.endereco() != null) {
+        if (dadosPaciente.endereco() != null) {
             this.enderecoCompleto.atualizarInformacoesEndereco(dadosPaciente.endereco());
         }
     }

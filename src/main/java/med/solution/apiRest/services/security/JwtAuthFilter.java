@@ -49,7 +49,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         var authorizationHeader = request.getHeader("Authorization");
         if(authorizationHeader != null){
 
-        return authorizationHeader.replace("Bearer", " "); //tirar o nome do prefixo Bearer no cabeçalho
+        return authorizationHeader.replace("Bearer ", ""); //tirar o nome do prefixo Bearer no cabeçalho
         }
         return null;
     }
