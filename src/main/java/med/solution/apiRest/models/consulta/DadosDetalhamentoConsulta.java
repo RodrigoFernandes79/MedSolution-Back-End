@@ -1,5 +1,6 @@
 package med.solution.apiRest.models.consulta;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import med.solution.apiRest.models.medico.Medico;
 import med.solution.apiRest.models.paciente.Paciente;
 
@@ -9,6 +10,7 @@ public record DadosDetalhamentoConsulta(
         Long id,
         Paciente paciente,
         Medico medico,
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDateTime dataConsulta
 ) {
     public DadosDetalhamentoConsulta(Long id, Paciente paciente, Medico medico, LocalDateTime dataConsulta) {
@@ -17,4 +19,5 @@ public record DadosDetalhamentoConsulta(
         this.medico = medico;
         this.dataConsulta = dataConsulta;
     }
+
 }

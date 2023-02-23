@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Getter @Setter
 @Table(name = "consultas")
 @Entity(name = "Consulta")
 @EqualsAndHashCode(of = "id")
@@ -25,7 +25,6 @@ public class Consulta {
     @JoinColumn(name = "medico_id")
     private Medico medico;
     private LocalDateTime dataConsulta;
-
 
 }
 
