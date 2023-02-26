@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @Table(name = "consultas")
 @Entity(name = "Consulta")
 @EqualsAndHashCode(of = "id")
@@ -25,6 +26,15 @@ public class Consulta {
     @JoinColumn(name = "medico_id")
     private Medico medico;
     private LocalDateTime dataConsulta;
+
+
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamento motivoCancelamento;
+
+    public void cancelar(MotivoCancelamento motivo) {
+
+        this.motivoCancelamento = motivo;
+    }
 
 }
 

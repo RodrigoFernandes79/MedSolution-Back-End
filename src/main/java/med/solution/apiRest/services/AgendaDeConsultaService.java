@@ -3,6 +3,8 @@ package med.solution.apiRest.services;
 import med.solution.apiRest.exceptions.ValidacaoException;
 import med.solution.apiRest.models.consulta.Consulta;
 import med.solution.apiRest.models.consulta.DadosCadastraisConsulta;
+import med.solution.apiRest.models.consulta.DadosCancelamentoConsulta;
+import med.solution.apiRest.models.consulta.DadosDetalhamentoConsulta;
 import med.solution.apiRest.models.medico.Medico;
 import med.solution.apiRest.models.paciente.Paciente;
 import med.solution.apiRest.repositories.ConsultaRepository;
@@ -23,7 +25,7 @@ public class AgendaDeConsultaService {
     @Autowired
     private MedicoRepository medicoRepository;
 
-    public void agendarConsulta(DadosCadastraisConsulta dadosCadastraisConsulta) {
+    public DadosDetalhamentoConsulta agendarConsulta(DadosCadastraisConsulta dadosCadastraisConsulta) {
         Optional<Paciente> paciente = pacienteRepository.findById(dadosCadastraisConsulta.pacienteId());
         if (paciente.isEmpty()) {
             throw new ValidacaoException("Paciente não cadastrado");
@@ -32,8 +34,10 @@ public class AgendaDeConsultaService {
         if (medico == null && dadosCadastraisConsulta.medicoId() != null) {
             throw new ValidacaoException("Médico não cadastrado");
         }
-        var consulta = new Consulta(null, paciente.get(), medico, dadosCadastraisConsulta.dataConsulta());
+        var consulta = new Consulta(null, paciente.get(), medico, dadosCadastraisConsulta.dataConsulta(), null);
         consultaRepository.save(consulta);
+
+        return new DadosDetalhamentoConsulta(consulta);
     }
 
     private Medico escolherMedicoDisponivel(DadosCadastraisConsulta dadosCadastraisConsulta) {
@@ -50,4 +54,11 @@ public class AgendaDeConsultaService {
     }
 
 
+    public void cancelarConsulta(DadosCancelamentoConsulta dadosCancelamento) {
+        var consulta = consultaRepository.findById(dadosCancelamento.consultaId());
+        if (consulta.isEmpty()) {
+            throw new ValidacaoException("Consulta não existe no Banco de dados.");
+        }
+        consulta.get().cancelar(dadosCancelamento.motivo());
+    }
 }
