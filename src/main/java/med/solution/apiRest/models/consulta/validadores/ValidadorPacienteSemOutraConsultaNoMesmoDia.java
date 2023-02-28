@@ -2,8 +2,12 @@ package med.solution.apiRest.models.consulta.validadores;
 
 import med.solution.apiRest.models.consulta.DadosCadastraisConsulta;
 import med.solution.apiRest.repositories.ConsultaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ValidadorPacienteSemOutraConsultaNoMesmoDia {
+@Component
+public class ValidadorPacienteSemOutraConsultaNoMesmoDia implements ValidadorAgendamentoDeConsulta {
+    @Autowired
     private ConsultaRepository consultaRepository;
 
     public void validacaoConsulta(DadosCadastraisConsulta dadosCadastraisConsulta) {

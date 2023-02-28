@@ -3,8 +3,12 @@ package med.solution.apiRest.models.consulta.validadores;
 import med.solution.apiRest.exceptions.ValidacaoException;
 import med.solution.apiRest.models.consulta.DadosCadastraisConsulta;
 import med.solution.apiRest.repositories.PacienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class ValidadorPacienteAtivo {
+@Component
+public class ValidadorPacienteAtivo implements ValidadorAgendamentoDeConsulta {
+    @Autowired
     private PacienteRepository pacienteRepository;
 
     public void validacaoConsulta(DadosCadastraisConsulta dadosCadastraisConsulta) {

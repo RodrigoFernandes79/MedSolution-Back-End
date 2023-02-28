@@ -5,6 +5,7 @@ import med.solution.apiRest.models.consulta.Consulta;
 import med.solution.apiRest.models.consulta.DadosCadastraisConsulta;
 import med.solution.apiRest.models.consulta.DadosCancelamentoConsulta;
 import med.solution.apiRest.models.consulta.DadosDetalhamentoConsulta;
+import med.solution.apiRest.models.consulta.validadores.ValidadorAgendamentoDeConsulta;
 import med.solution.apiRest.models.medico.Medico;
 import med.solution.apiRest.models.paciente.Paciente;
 import med.solution.apiRest.repositories.ConsultaRepository;
@@ -13,6 +14,7 @@ import med.solution.apiRest.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,12 +26,17 @@ public class AgendaDeConsultaService {
     private PacienteRepository pacienteRepository;
     @Autowired
     private MedicoRepository medicoRepository;
+    @Autowired
+    private List<ValidadorAgendamentoDeConsulta> validadores;
 
     public DadosDetalhamentoConsulta agendarConsulta(DadosCadastraisConsulta dadosCadastraisConsulta) {
         Optional<Paciente> paciente = pacienteRepository.findById(dadosCadastraisConsulta.pacienteId());
         if (paciente.isEmpty()) {
             throw new ValidacaoException("Paciente não cadastrado");
         }
+
+        validadores.forEach(v -> v.validacaoConsulta(dadosCadastraisConsulta));
+
         Medico medico = escolherMedicoDisponivel(dadosCadastraisConsulta);
         if (medico == null && dadosCadastraisConsulta.medicoId() != null) {
             throw new ValidacaoException("Médico não cadastrado");
