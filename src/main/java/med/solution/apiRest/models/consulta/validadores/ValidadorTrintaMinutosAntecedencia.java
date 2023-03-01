@@ -2,7 +2,6 @@ package med.solution.apiRest.models.consulta.validadores;
 
 import med.solution.apiRest.exceptions.ValidacaoException;
 import med.solution.apiRest.models.consulta.DadosCadastraisConsulta;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Component
 public class ValidadorTrintaMinutosAntecedencia implements ValidadorAgendamentoDeConsulta {
-    @Autowired
+
     public void validacaoConsulta(DadosCadastraisConsulta dadosCadastraisConsulta) {
 
         var dataConsulta = dadosCadastraisConsulta.dataConsulta();

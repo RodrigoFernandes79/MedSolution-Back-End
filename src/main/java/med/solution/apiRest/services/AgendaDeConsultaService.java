@@ -34,13 +34,18 @@ public class AgendaDeConsultaService {
         if (paciente.isEmpty()) {
             throw new ValidacaoException("Paciente não cadastrado");
         }
-
-        validadores.forEach(v -> v.validacaoConsulta(dadosCadastraisConsulta));
-
-        Medico medico = escolherMedicoDisponivel(dadosCadastraisConsulta);
-        if (medico == null && dadosCadastraisConsulta.medicoId() != null) {
+        if (dadosCadastraisConsulta.medicoId() != null &&
+                !medicoRepository.existsById(dadosCadastraisConsulta.medicoId())) {
             throw new ValidacaoException("Médico não cadastrado");
         }
+
+        Medico medico = escolherMedicoDisponivel(dadosCadastraisConsulta);
+
+        if (medico == null) {
+            throw new ValidacaoException("Não existe medico disponível nessa data.");
+        }
+        validadores.forEach(v -> v.validacaoConsulta(dadosCadastraisConsulta));
+
         var consulta = new Consulta(null, paciente.get(), medico, dadosCadastraisConsulta.dataConsulta(), null);
         consultaRepository.save(consulta);
 
@@ -50,7 +55,7 @@ public class AgendaDeConsultaService {
     private Medico escolherMedicoDisponivel(DadosCadastraisConsulta dadosCadastraisConsulta) {
 
         if (dadosCadastraisConsulta.medicoId() != null) {
-            return medicoRepository.findById(dadosCadastraisConsulta.medicoId()).get();
+            return medicoRepository.getReferenceById(dadosCadastraisConsulta.medicoId());
         }
 
         if (dadosCadastraisConsulta.especialidade() == null) {
