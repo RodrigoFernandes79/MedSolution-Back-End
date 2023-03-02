@@ -75,8 +75,8 @@ public class AgendaDeConsultaService {
         }
         var dataConsulta = consulta.get().getDataConsulta();
         var dataCancelamento = LocalDateTime.now();
-        var diferencaEmMinutos = Duration.between(dataCancelamento, dataConsulta).toHours();
-        if (diferencaEmMinutos < 24) {
+        var diferencaEmHoras = Duration.between(dataCancelamento, dataConsulta).toHours();
+        if (diferencaEmHoras < 24) {
             throw new ValidacaoException("Consulta deve ser cancelada em no mínimo 24 horas.");
         }
 
