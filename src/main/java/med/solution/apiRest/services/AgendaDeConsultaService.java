@@ -14,6 +14,8 @@ import med.solution.apiRest.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,6 +73,13 @@ public class AgendaDeConsultaService {
         if (consulta.isEmpty()) {
             throw new ValidacaoException("Consulta não existe no Banco de dados.");
         }
+        var dataConsulta = consulta.get().getDataConsulta();
+        var dataCancelamento = LocalDateTime.now();
+        var diferencaEmMinutos = Duration.between(dataCancelamento, dataConsulta).toHours();
+        if (diferencaEmMinutos < 24) {
+            throw new ValidacaoException("Consulta deve ser cancelada em no mínimo 24 horas.");
+        }
+
         consulta.get().cancelar(dadosCancelamento.motivo());
     }
 }
