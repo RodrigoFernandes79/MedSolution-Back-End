@@ -21,22 +21,26 @@ public class SecurityConfigurations {
 
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .requestMatchers(HttpMethod.POST,"/login/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/login/**").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration) throws Exception {
 
         return configuration.getAuthenticationManager();
     }
+
     @Bean  //método para encriptografar senhas
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
