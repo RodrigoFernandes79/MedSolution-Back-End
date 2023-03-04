@@ -1,5 +1,6 @@
 package med.solution.apiRest.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.solution.apiRest.models.consulta.DadosCadastraisConsulta;
 import med.solution.apiRest.models.consulta.DadosCancelamentoConsulta;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/consultas")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     @Autowired

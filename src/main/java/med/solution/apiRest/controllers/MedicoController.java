@@ -1,11 +1,8 @@
 package med.solution.apiRest.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.solution.apiRest.models.medico.Medico;
-import med.solution.apiRest.models.medico.DadosAtualizacaoMedico;
-import med.solution.apiRest.models.medico.DadosCadastraisMedico;
-import med.solution.apiRest.models.medico.DadosDetalhamentoMedico;
-import med.solution.apiRest.models.medico.DadosListagemMedico;
+import med.solution.apiRest.models.medico.*;
 import med.solution.apiRest.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/medicos")
+@SecurityRequirement(name = "bearer-key")
 public class MedicoController {
 
     @Autowired
@@ -33,13 +31,13 @@ public class MedicoController {
 
         var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 
-       return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
 
     }
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemMedico>> listarMedico(
-            @PageableDefault(size =10,sort = {"nome"} )
+            @PageableDefault(size = 10, sort = {"nome"})
             Pageable paginacao) {
 
         var pageMedico = medRepository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
@@ -47,14 +45,16 @@ public class MedicoController {
         return ResponseEntity.ok().body(pageMedico);
 
     }
+
     @PutMapping
     @Transactional
-    public ResponseEntity atualizarMedico(@RequestBody @Valid DadosAtualizacaoMedico dadosMedico){
+    public ResponseEntity atualizarMedico(@RequestBody @Valid DadosAtualizacaoMedico dadosMedico) {
 
         var medico = medRepository.getReferenceById(dadosMedico.id());
-          medico.atualizarInformacoes(dadosMedico);
-        return  ResponseEntity.ok().body(new DadosDetalhamentoMedico(medico));
+        medico.atualizarInformacoes(dadosMedico);
+        return ResponseEntity.ok().body(new DadosDetalhamentoMedico(medico));
     }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deletarMedico(@PathVariable Long id) {
@@ -62,6 +62,7 @@ public class MedicoController {
         medico.desativarMedico();
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity detalharMedicoPorId(@PathVariable Long id) {
         var medico = medRepository.getReferenceById(id);

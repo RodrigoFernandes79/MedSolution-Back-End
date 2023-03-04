@@ -1,12 +1,9 @@
 package med.solution.apiRest.controllers;
 
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.solution.apiRest.models.paciente.Paciente;
-import med.solution.apiRest.models.paciente.DadosAtualizacaoPaciente;
-import med.solution.apiRest.models.paciente.DadosCadastraisPaciente;
-import med.solution.apiRest.models.paciente.DadosDetalhamentoPaciente;
-import med.solution.apiRest.models.paciente.DadosListagemPaciente;
+import med.solution.apiRest.models.paciente.*;
 import med.solution.apiRest.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,54 +16,59 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
-	@Autowired
-	private PacienteRepository pacienteRepository;
+    @Autowired
+    private PacienteRepository pacienteRepository;
 
 
-	@PostMapping
-	@Transactional
-	public ResponseEntity cadastrarPaciente(
-			@RequestBody @Valid DadosCadastraisPaciente dadosPaciente,
-			UriComponentsBuilder uriBuilder) {
+    @PostMapping
+    @Transactional
+    public ResponseEntity cadastrarPaciente(
+            @RequestBody @Valid DadosCadastraisPaciente dadosPaciente,
+            UriComponentsBuilder uriBuilder) {
 
-		var paciente = new Paciente(dadosPaciente);
-		pacienteRepository.save(paciente);
+        var paciente = new Paciente(dadosPaciente);
+        pacienteRepository.save(paciente);
 
-		var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
+        var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
 
-		return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
 
-}
-	@GetMapping
-	public ResponseEntity<Page<DadosListagemPaciente>> listarPacientes(
-			@PageableDefault(size=10,sort={"nome"})
-			Pageable paginacao) {
-		var paciente = pacienteRepository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+    }
 
-		return ResponseEntity.ok().body(paciente);
-	}
-	@PutMapping
-	@Transactional
-	public ResponseEntity atualizarPaciente(@RequestBody @Valid DadosAtualizacaoPaciente dadosPaciente) {
-		var paciente = pacienteRepository.getReferenceById(dadosPaciente.id());
-		paciente.atualizarInformacoesPaciente(dadosPaciente);
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemPaciente>> listarPacientes(
+            @PageableDefault(size = 10, sort = {"nome"})
+            Pageable paginacao) {
+        var paciente = pacienteRepository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
 
-		return ResponseEntity.ok().body(new DadosDetalhamentoPaciente(paciente));
+        return ResponseEntity.ok().body(paciente);
+    }
 
-	}
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity deletarPaciente(@PathVariable Long id) {
-		var paciente = pacienteRepository.getReferenceById(id);
-		paciente.desativarPaciente();
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizarPaciente(@RequestBody @Valid DadosAtualizacaoPaciente dadosPaciente) {
+        var paciente = pacienteRepository.getReferenceById(dadosPaciente.id());
+        paciente.atualizarInformacoesPaciente(dadosPaciente);
 
-		return ResponseEntity.noContent().build();
-	}
-	@GetMapping("/{id}")
-	public ResponseEntity detalharPacientePorId(@PathVariable Long id) {
-		var paciente = pacienteRepository.getReferenceById(id);
+        return ResponseEntity.ok().body(new DadosDetalhamentoPaciente(paciente));
 
-		return ResponseEntity.ok().body(new DadosDetalhamentoPaciente(paciente));
-	}
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deletarPaciente(@PathVariable Long id) {
+        var paciente = pacienteRepository.getReferenceById(id);
+        paciente.desativarPaciente();
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalharPacientePorId(@PathVariable Long id) {
+        var paciente = pacienteRepository.getReferenceById(id);
+
+        return ResponseEntity.ok().body(new DadosDetalhamentoPaciente(paciente));
+    }
 }
